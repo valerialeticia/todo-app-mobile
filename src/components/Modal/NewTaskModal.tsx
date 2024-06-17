@@ -9,17 +9,24 @@ import {
   View,
 } from "react-native";
 import { Theme } from "../../themes";
+import { Buttons } from "../Buttons";
 
 const close = require("../../../assets/close.png");
 
-export function NewTaskModal() {
+type Props = {
+  isVisible: boolean;
+  onClose: () => void;
+};
+
+export function NewTaskModal({ isVisible, onClose }: Props) {
   return (
-    <Modal transparent>
+    <Modal animationType="slide" visible={isVisible} transparent>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <View style={styles.header}>
             <Text style={styles.title}>New task</Text>
             <TouchableOpacity
+              onPress={onClose}
               hitSlop={{ top: 20, left: 20, right: 20, bottom: 20 }} // melhora região de toque para fechar o modal.
             >
               <Image
@@ -35,6 +42,7 @@ export function NewTaskModal() {
               placeholderTextColor="rgba(0, 0, 0, 0.5)"
               style={styles.textInput}
             />
+            <Buttons label="create" />
           </View>
         </View>
       </SafeAreaView>
@@ -83,6 +91,7 @@ const styles = StyleSheet.create({
   textInput: {
     borderBottomWidth: 1,
     paddingVertical: 10,
+    marginBottom: 20,
   },
   modalContent: {
     padding: 20,
