@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.15,
+    position: "absolute",
+    right: 40,
+    bottom: 40,
   },
   plusIcon: {
     width: 14,

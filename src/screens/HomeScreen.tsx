@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.colors.primary,
   },
   container: {
+    flex: 1,
     paddingVertical: 40,
     paddingHorizontal: 20,
   },
