@@ -1,6 +1,6 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Theme } from "../themes";
-import { FabButton, NoTasksCards } from "../components";
+import { FabButton, NewTaskModal, NoTasksCards } from "../components";
 
 const logo = require("../../assets/logo.png");
 
@@ -11,6 +11,7 @@ export function HomeScreen() {
         <Image source={logo} style={styles.logo} resizeMode="contain" />
         <NoTasksCards />
         <FabButton />
+        <NewTaskModal />
       </View>
     </SafeAreaView>
   );
