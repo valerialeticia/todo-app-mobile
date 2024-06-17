@@ -19,6 +19,6 @@ $ npx expo start --tunnel
 ```
 
 ## Tecnologias utilizadas
-- [React Native](https://reactnative.dev/))
+- [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
 - [Typescript](https://www.typescriptlang.org/)
