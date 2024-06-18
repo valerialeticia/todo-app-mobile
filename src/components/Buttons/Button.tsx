@@ -1,30 +1,35 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Theme } from "../../themes";
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Theme } from '../../themes';
 
 type Props = {
-  label: string;
+  label?: string;
+  variant?: 'primary' | 'light';
+  icon?: any;
 };
 
-export function Buttons({ label }: Props) {
+export function Buttons({ label, variant = 'primary', icon }: Props) {
+  const buttonStyle = { backgroundColor: variant === 'light' ? '#fff' : Theme.colors.primary };
+  const textStyle = { color: variant === 'light' ? Theme.colors.primary : '#fff' };
+
   return (
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.text}>{label}</Text>
+    <TouchableOpacity style={[styles.button, buttonStyle]}>
+      {!!label && <Text style={[styles.text, textStyle]}>{label}</Text>}
+      {!!icon && <Image source={icon} />}
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Theme.colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 4,
     paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   text: {
-    color: "#fff",
-    textTransform: "uppercase",
-    fontWeight: "bold",
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
     fontSize: 20,
   },
 });
