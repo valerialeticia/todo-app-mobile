@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-const check = require("../../../assets/big-check.png");
+const check = require('../../../assets/big-check.png');
 
 export function NoTasksCards() {
   return (
@@ -17,9 +17,9 @@ export function NoTasksCards() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 20,
     borderRadius: 4,
   },
@@ -27,15 +27,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   text: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
   },
   smallText: {
     width: 150,
-    color: "#fff",
+    color: '#fff',
     fontSize: 14,
-    textAlign: "center",
-    alignSelf: "center",
+    textAlign: 'center',
+    alignSelf: 'center',
     paddingVertical: 10,
   },
 });
