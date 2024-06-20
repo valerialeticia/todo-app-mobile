@@ -7,7 +7,7 @@ import { HomeScreenActions, HomeScreenReducer, homeScreenInitialState } from '..
 const logoImage = require('../../assets/logo.png');
 
 export function HomeScreen() {
-  const [{ isModalVisible, tasks }, dispatch] = useReducer(
+  const [{ isModalVisible, tasks, selectedTaskIndex }, dispatch] = useReducer(
     HomeScreenReducer,
     homeScreenInitialState,
   );
@@ -23,7 +23,13 @@ export function HomeScreen() {
               <Timer />
             </View>
 
-            <TasksList data={tasks} />
+            <TasksList
+              selectedIndex={selectedTaskIndex}
+              data={tasks}
+              onPress={(selectedTaskIndex: number) =>
+                dispatch(HomeScreenActions.selectTaskIndex({ selectedTaskIndex }))
+              }
+            />
           </>
         )}
 
