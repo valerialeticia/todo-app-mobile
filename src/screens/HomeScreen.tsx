@@ -1,12 +1,16 @@
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes';
 import { FabButton, NewTaskModal, NoTasksCards, TasksList, Timer } from '../components';
-import { useState } from 'react';
+import { useReducer } from 'react';
+import { HomeScreenActions, HomeScreenReducer, homeScreenInitialState } from '../reducers';
 
 const logoImage = require('../../assets/logo.png');
 
 export function HomeScreen() {
-  const [isNewTaskModalVisible, setIsNewTaskModalVisible] = useState(false);
+  const [{ isModalVisible, tasks }, dispatch] = useReducer(
+    HomeScreenReducer,
+    homeScreenInitialState,
+  );
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -19,20 +23,21 @@ export function HomeScreen() {
               <Timer />
             </View>
 
-            <TasksList
-              data={[
-                { isSelected: true, label: 'Create a frontend project', status: 'IN_PROGRESS' },
-                { isSelected: false, label: 'Create a frontend project', status: 'READY' },
-                { isSelected: false, label: 'Create a frontend project', status: 'READY' },
-              ]}
-            />
+            <TasksList data={tasks} />
           </>
         )}
 
-        <FabButton onPress={() => setIsNewTaskModalVisible(true)} />
+        <FabButton
+          onPress={() => dispatch(HomeScreenActions.toggleModal({ isModalVisible: true }))}
+        />
         <NewTaskModal
-          isVisible={isNewTaskModalVisible}
-          onClose={() => setIsNewTaskModalVisible(false)}
+          isVisible={isModalVisible}
+          onClose={() => dispatch(HomeScreenActions.toggleModal({ isModalVisible: false }))}
+          onSubmit={(label: string) =>
+            dispatch(
+              HomeScreenActions.createTask({ task: { label, isSelected: false, status: 'READY' } }),
+            )
+          }
         />
       </View>
     </SafeAreaView>

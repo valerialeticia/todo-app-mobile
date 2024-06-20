@@ -7,20 +7,29 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { Theme } from "../../themes";
-import { Buttons } from "../Buttons";
+} from 'react-native';
+import { Theme } from '../../themes';
+import { Buttons } from '../Buttons';
+import { useState } from 'react';
 
-const close = require("../../../assets/close.png");
+const close = require('../../../assets/close.png');
 
 type Props = {
   isVisible: boolean;
   onClose: () => void;
+  onSubmit: (label: string) => void;
 };
 
-export function NewTaskModal({ isVisible, onClose }: Props) {
+export function NewTaskModal({ isVisible, onClose, onSubmit }: Props) {
+  const [text, setText] = useState<string>('');
+
+  function handleSubmit() {
+    onSubmit(text);
+    setText('');
+  }
+
   return (
-    <Modal animationType="slide" visible={isVisible} transparent>
+    <Modal animationType='slide' visible={isVisible} transparent>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <View style={styles.header}>
@@ -29,20 +38,17 @@ export function NewTaskModal({ isVisible, onClose }: Props) {
               onPress={onClose}
               hitSlop={{ top: 20, left: 20, right: 20, bottom: 20 }} // melhora região de toque para fechar o modal.
             >
-              <Image
-                source={close}
-                style={styles.closeImage}
-                resizeMode="contain"
-              />
+              <Image source={close} style={styles.closeImage} resizeMode='contain' />
             </TouchableOpacity>
           </View>
           <View style={styles.modalContent}>
             <TextInput
-              placeholder="Enter a task name here..."
-              placeholderTextColor="rgba(0, 0, 0, 0.5)"
+              onChangeText={setText}
+              placeholder='Enter a task name here...'
+              placeholderTextColor='rgba(0, 0, 0, 0.5)'
               style={styles.textInput}
             />
-            <Buttons label="create" />
+            <Buttons label='create' disabled={!text || text?.length === 0} onPress={handleSubmit} />
           </View>
         </View>
       </SafeAreaView>
@@ -53,35 +59,35 @@ export function NewTaskModal({ isVisible, onClose }: Props) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#fff",
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#fff',
     borderRadius: 4,
     elevation: 0.5,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     shadowOpacity: 0.15,
   },
   header: {
-    width: "100%",
+    width: '100%',
     height: 50,
     backgroundColor: Theme.colors.primary,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
   title: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: '#fff',
+    fontWeight: 'bold',
     fontSize: 18,
   },
   closeImage: {
