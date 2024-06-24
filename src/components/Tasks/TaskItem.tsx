@@ -1,23 +1,29 @@
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { TaskStepsEnum } from '../../reducers';
 
 export type Props = {
   isSelected?: boolean;
   label: string;
-  status?: 'READY' | 'IN_PROGRESS' | 'FINISHED';
+  status?: TaskStepsEnum;
   onPress: () => void;
 };
 
 const tinyCheckImage = require('../../../assets/tiny-check.png');
 
-export function TaskItem({ label, status = 'READY', isSelected = false, onPress }: Props) {
+export function TaskItem({
+  label,
+  status = TaskStepsEnum.Ready,
+  isSelected = false,
+  onPress,
+}: Props) {
   return (
     <TouchableOpacity
       style={[styles.container, isSelected && styles.containerSelected]}
       onPress={onPress}
     >
       <Text style={styles.label}>{label}</Text>
-      {status === 'IN_PROGRESS' && <Text style={styles.statusText}>In progress</Text>}
-      {status === 'FINISHED' && <Image source={tinyCheckImage} />}
+      {status === TaskStepsEnum.InProgress && <Text style={styles.statusText}>In progress</Text>}
+      {status === TaskStepsEnum.Finished && <Image source={tinyCheckImage} />}
     </TouchableOpacity>
   );
 }
