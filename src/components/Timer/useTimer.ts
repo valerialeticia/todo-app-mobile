@@ -8,13 +8,20 @@ enum TimerStepsEnum {
   Finished = 'FINISHED',
 }
 
+type Props = {
+  handleStart?: () => void;
+  handleCheck?: () => void;
+  handleStop?: () => void;
+};
+
 /** Hook responsável pelo gerenciamento do componente Timer. */
-export function useTimer() {
+export function useTimer({ handleStart, handleCheck, handleStop }: Props) {
   const [isRunning, setIsRunning] = useState(false);
   const [timerSeconds, setTimerSeconds] = useState(TIMER_SECONDS_DEFAULT);
   const [step, setStep] = useState(TimerStepsEnum.Stop);
 
   function onStart() {
+    if (handleStart) handleStart();
     setIsRunning(true);
     setTimerSeconds(TIMER_SECONDS_DEFAULT);
     setStep(TimerStepsEnum.InProgress);
@@ -31,6 +38,7 @@ export function useTimer() {
   }
 
   function onStop() {
+    if (handleStop) handleStop();
     setIsRunning(false);
     setTimerSeconds(TIMER_SECONDS_DEFAULT);
     setStep(TimerStepsEnum.Stop);
@@ -49,6 +57,7 @@ export function useTimer() {
   }
 
   function onCheck() {
+    if (handleCheck) handleCheck();
     setIsRunning(false);
     setTimerSeconds(TIMER_SECONDS_DEFAULT);
     setStep(TimerStepsEnum.Stop);
@@ -91,7 +100,6 @@ export function useTimer() {
     onPause,
     onStop,
     onRestart,
-    onFinished,
     TimerStepsEnum,
     step,
     onCheck,

@@ -8,7 +8,14 @@ const stopImage = require('../../../assets/stop.png');
 const restartImage = require('../../../assets/restart.png');
 const strongCheckImage = require('../../../assets/strong-check.png');
 
-export function Timer() {
+type Props = {
+  enabled?: boolean;
+  handleStart?: () => void;
+  handleCheck?: () => void;
+  handleStop?: () => void;
+};
+
+export function Timer({ enabled = false, handleStart, handleCheck, handleStop }: Props) {
   const {
     minutes,
     seconds,
@@ -17,12 +24,11 @@ export function Timer() {
     onPause,
     onStop,
     onRestart,
-    onFinished,
     TimerStepsEnum,
     step,
     onCheck,
     timerStatusText,
-  } = useTimer();
+  } = useTimer({ handleStart, handleCheck, handleStop });
   return (
     <View style={styles.container}>
       <Text style={styles.statusText}>{timerStatusText}</Text>
@@ -32,7 +38,7 @@ export function Timer() {
       <View style={styles.controls}>
         {step === TimerStepsEnum.Stop && (
           <View style={{ width: '80%' }}>
-            <Buttons label='start' variant='light' onPress={onStart} />
+            <Buttons disabled={!enabled} label='start' variant='light' onPress={onStart} />
           </View>
         )}
         {step === TimerStepsEnum.InProgress && (
