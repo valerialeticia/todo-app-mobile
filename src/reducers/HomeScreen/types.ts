@@ -1,15 +1,21 @@
-/** Enum */
+/** Enums */
 export enum HomeScreenActionsEnum {
   ToggleModal = 'TOGGLE_MODAL',
   CreateTask = 'CREATE_TASK',
   SelectTaskIndex = 'SELECT_TASK_INDEX',
+  SetTaskStatus = 'SET_TASK_STATUS',
+}
+export enum TaskStepsEnum {
+  Ready = 'Ready',
+  InProgress = 'InProgress',
+  Finished = 'Finished',
 }
 
 /** HomeScreen & demais */
 export type ITask = {
   isSelected?: boolean;
   label: string;
-  status?: 'READY' | 'IN_PROGRESS' | 'FINISHED';
+  status?: TaskStepsEnum;
 };
 export type IHomeScreen = {
   isModalVisible: boolean;
@@ -25,6 +31,9 @@ export type ICreateTaskPayload = {
 export type ISelectTaskIndexPayload = {
   selectedTaskIndex: number;
 };
+export type ISetTaskStatusPayload = {
+  taskStatus: TaskStepsEnum;
+};
 
 /** Actions */
 export type IToggleModalAction = {
@@ -39,6 +48,14 @@ export type ISelectTaskIndexAction = {
   type: HomeScreenActionsEnum.SelectTaskIndex;
   payload: ISelectTaskIndexPayload;
 };
+export type ISetTaskStatusAction = {
+  type: HomeScreenActionsEnum.SetTaskStatus;
+  payload: ISetTaskStatusPayload;
+};
 
 /** HomeScreen Actions */
-export type IHomeScreenActions = IToggleModalAction | ICreateTaskAction | ISelectTaskIndexAction;
+export type IHomeScreenActions =
+  | IToggleModalAction
+  | ICreateTaskAction
+  | ISelectTaskIndexAction
+  | ISetTaskStatusAction;

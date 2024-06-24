@@ -20,7 +20,12 @@ export function HomeScreen() {
         ) : (
           <>
             <View style={styles.timerContainer}>
-              <Timer />
+              <Timer
+                enabled={selectedTaskIndex ? selectedTaskIndex >= 0 : true}
+                handleStart={() => dispatch(HomeScreenActions.taskStart())}
+                handleCheck={() => dispatch(HomeScreenActions.taskFinished())}
+                handleStop={() => dispatch(HomeScreenActions.taskStop())}
+              />
             </View>
 
             <TasksList
@@ -39,11 +44,7 @@ export function HomeScreen() {
         <NewTaskModal
           isVisible={isModalVisible}
           onClose={() => dispatch(HomeScreenActions.toggleModal({ isModalVisible: false }))}
-          onSubmit={(label: string) =>
-            dispatch(
-              HomeScreenActions.createTask({ task: { label, isSelected: false, status: 'READY' } }),
-            )
-          }
+          onSubmit={(label: string) => dispatch(HomeScreenActions.createTask({ task: { label } }))}
         />
       </View>
     </SafeAreaView>

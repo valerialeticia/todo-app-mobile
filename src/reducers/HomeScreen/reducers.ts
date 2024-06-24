@@ -1,4 +1,4 @@
-import { HomeScreenActionsEnum, IHomeScreen, IHomeScreenActions } from './types';
+import { HomeScreenActionsEnum, IHomeScreen, IHomeScreenActions, ITask } from './types';
 
 export function HomeScreenReducer(state: IHomeScreen, action: IHomeScreenActions): IHomeScreen {
   switch (action.type) {
@@ -8,6 +8,11 @@ export function HomeScreenReducer(state: IHomeScreen, action: IHomeScreenActions
       return { ...state, isModalVisible: false, tasks: [...state.tasks, action.payload.task] };
     case HomeScreenActionsEnum.SelectTaskIndex:
       return { ...state, selectedTaskIndex: action.payload.selectedTaskIndex };
+    case HomeScreenActionsEnum.SetTaskStatus:
+      const tasks = [...state.tasks];
+      if (state.selectedTaskIndex !== undefined)
+        tasks[state.selectedTaskIndex].status = action.payload.taskStatus;
+      return { ...state, tasks };
     default:
       return { ...state };
   }

@@ -4,8 +4,11 @@ import {
   ICreateTaskPayload,
   ISelectTaskIndexAction,
   ISelectTaskIndexPayload,
+  ISetTaskStatusAction,
+  ISetTaskStatusPayload,
   IToggleModalAction,
   IToggleModalPayload,
+  TaskStepsEnum,
 } from './types';
 
 function toggleModal(payload: IToggleModalPayload): IToggleModalAction {
@@ -16,6 +19,8 @@ function toggleModal(payload: IToggleModalPayload): IToggleModalAction {
 }
 
 function createTask(payload: ICreateTaskPayload): ICreateTaskAction {
+  payload.task.isSelected = false;
+  payload.task.status = TaskStepsEnum.Ready;
   return {
     type: HomeScreenActionsEnum.CreateTask,
     payload,
@@ -29,8 +34,30 @@ function selectTaskIndex(payload: ISelectTaskIndexPayload): ISelectTaskIndexActi
   };
 }
 
+function setTaskStatus(payload: ISetTaskStatusPayload): ISetTaskStatusAction {
+  return {
+    type: HomeScreenActionsEnum.SetTaskStatus,
+    payload,
+  };
+}
+
+/** chamandas dos enumns */
+function taskStart() {
+  return setTaskStatus({ taskStatus: TaskStepsEnum.InProgress });
+}
+function taskFinished() {
+  return setTaskStatus({ taskStatus: TaskStepsEnum.Finished });
+}
+function taskStop() {
+  return setTaskStatus({ taskStatus: TaskStepsEnum.Ready });
+}
+
 export const HomeScreenActions = {
   toggleModal,
   createTask,
   selectTaskIndex,
+  setTaskStatus,
+  taskStart,
+  taskFinished,
+  taskStop,
 };
