@@ -21,7 +21,7 @@ export function HomeScreen() {
           <>
             <View style={styles.timerContainer}>
               <Timer
-                enabled={selectedTaskIndex ? selectedTaskIndex >= 0 : true}
+                enabled={HomeScreenActions.isTimerEnabled(selectedTaskIndex as number, tasks)}
                 handleStart={() => dispatch(HomeScreenActions.taskStart())}
                 handleCheck={() => dispatch(HomeScreenActions.taskFinished())}
                 handleStop={() => dispatch(HomeScreenActions.taskStop())}

@@ -6,6 +6,7 @@ import {
   ISelectTaskIndexPayload,
   ISetTaskStatusAction,
   ISetTaskStatusPayload,
+  ITask,
   IToggleModalAction,
   IToggleModalPayload,
   TaskStepsEnum,
@@ -52,6 +53,11 @@ function taskStop() {
   return setTaskStatus({ taskStatus: TaskStepsEnum.Ready });
 }
 
+function isTimerEnabled(selectedTaskIndex: number, tasks: ITask[]) {
+  if (selectedTaskIndex !== undefined)
+    return selectedTaskIndex >= 0 && tasks[selectedTaskIndex].status !== TaskStepsEnum.Finished;
+}
+
 export const HomeScreenActions = {
   toggleModal,
   createTask,
@@ -60,4 +66,5 @@ export const HomeScreenActions = {
   taskStart,
   taskFinished,
   taskStop,
+  isTimerEnabled,
 };
